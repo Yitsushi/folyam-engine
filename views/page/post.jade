@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  aside.right
+    h2 bekuldve
+  article.full
+    header
+      h1
+        a(href='#{post.path}')= post.title
+      time(datetime="#{post.datetime}", pubdate) #{post.humanDate}
+    p
+      | #{post.content}

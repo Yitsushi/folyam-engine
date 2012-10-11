@@ -4,62 +4,62 @@ block content
   div.highlight_articles
     if posts.length > 0
       article#pitch
-        a(href='/#{posts[0].slug}')
+        a(href='#{posts[0].path}')
           img(src="#{posts[0].main_image}")
         header
           h1
-            a(href='/#{posts[0].slug}')= posts[0].title
+            a(href='#{posts[0].path}')= posts[0].title
         p
           | #{posts[0].content}
-          a.next(href='/#{posts[0].slug}') részletek >
+          a.next(href='#{posts[0].path}') részletek >
 
     if posts.length > 1
       article.third
         header
           h3
-            a(href='/#{posts[1].slug}') #{posts[1].title}
+            a(href='#{posts[1].path}') #{posts[1].title}
         p
           | #{posts[1].content}
-          a.next(href='/#{posts[1].slug}') részletek >
+          a.next(href='#{posts[1].path}') részletek >
 
     if posts.length > 2
       article.third
         header
           h3
-            a(href='/#{posts[2].slug}') #{posts[2].title}
+            a(href='#{posts[2].path}') #{posts[2].title}
         p
           | #{posts[1].content}
-          a.next(href='/#{posts[2].slug}') részletek >
+          a.next(href='#{posts[2].path}') részletek >
 
     if posts.length > 3
       article.third.last
         header
           h3
-            a(href='/#{posts[3].slug}') #{posts[3].title}
+            a(href='#{posts[3].path}') #{posts[3].title}
         p
           | #{posts[3].content}
-          a.next(href='/#{posts[3].slug}') részletek >
+          a.next(href='#{posts[3].path}') részletek >
 
     if posts.length > 1
       div.line
-  
+
     if posts.length > 4
       section.left
         article
           header
             h4
-              a(href='/#{posts[4].slug}') #{posts[3].title}
+              a(href='#{posts[4].path}') #{posts[3].title}
           p
             | #{posts[4].content}
-            a.next(href='/#{posts[4].slug}') részletek >
+            a.next(href='#{posts[4].path}') részletek >
 
       if posts.length > 5
         section.right
           article
             header
               h3
-                a(href='/#{posts[5].slug}') #{posts[5].title}
-            a.next(href='/#{posts[5].slug}') részletek >
+                a(href='#{posts[5].path}') #{posts[5].title}
+            a.next(href='#{posts[5].path}') részletek >
             p
               | #{posts[5].content}
 
@@ -67,7 +67,7 @@ block content
             article
               header
                 h3
-                  a(href='/#{posts[6].slug}') #{posts[6].title}
-              a.next(href='/#{posts[6].slug}') részletek >
+                  a(href='#{posts[6].path}') #{posts[6].title}
+              a.next(href='#{posts[6].path}') részletek >
               p
                 | #{posts[6].content}

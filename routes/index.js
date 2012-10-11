@@ -1,21 +1,39 @@
 var services = require('../services');
     SiteModel = services.useModel('site').Site,
     PostModel = services.useModel('post').Post;
-    
+
 module.exports = function(app) {
   app.get('/', function(req, res) {
     SiteModel.currentSite(req, function(err, currentSite) {
-      if (currentSite === null) { return SiteModel.render404(req, res); }
+      if (currentSite === null) {
+        return SiteModel.render404(req, res);
+      }
       PostModel.lastPostsBySite(currentSite._id, 7, function(err, posts) {
         return res.render('page/index', { title: 'Android Jelly Bean-t pakoltam Galaxy S-re', posts: posts });
       });
-    })
+    });
   });
 
+
+  app.get('/post/*/*.html', function(req, res) {
+    SiteModel.currentSite(req, function(err, currentSite) {
+      if (currentSite === null) {
+        return SiteModel.render404(req, res);
+      }
+
+      PostModel.findPost(currentSite._id, req.params[1], function(err, post) {
+        if (post) {
+          return res.render('page/post', { title: post.title, post: post });
+        }
+        return SiteModel.render404(req, res);
+      });
+    });
+  });
+/*
   app.get('/create_posts', function(req, res) {
     SiteModel.currentSite(req, function(err, currentSite) {
       if (currentSite === null) { return SiteModel.render404(req, res); }
-      
+
       var Author = services.useModel('author').Author;
       Author.findOne({username: "yitsushi"}, function(err, me) {
         p = new PostModel();
@@ -24,7 +42,7 @@ module.exports = function(app) {
         p.author      = me._id;
         p.site        = currentSite._id;
         p.main_image  = 'http://folyam.info/assets/img/2012-08-13-android-jelly-bean-et-pakoltam-a-samsung-galaxy-s-emre-i9000/header.jpeg';
-        
+
         p.save(function(err) {
           if (err) {
             console.log(err);
@@ -35,7 +53,7 @@ module.exports = function(app) {
       });
     });
   });
-/*
+
   app.get('/create_sites', function(req, res) {
     var Site = services.useModel('site').Site;
     var Author = services.useModel('author').Author;
@@ -62,28 +80,28 @@ module.exports = function(app) {
         if (err) {
           console.log(err);
         }
-        
+
         me.sites.addToSet(s1._id);
 
         s2.save(function(err) {
           if (err) {
             console.log(err);
           }
-          
+
           me.sites.addToSet(s2._id);
 
           s3.save(function(err) {
             if (err) {
               console.log(err);
             }
-            
+
             me.sites.addToSet(s3._id);
-            
+
             me.save(function(err) {
               if (err) {
                 console.log(err);
               }
-              
+
               res.redirect('/');
             });
           });
@@ -91,7 +109,7 @@ module.exports = function(app) {
       });
     });
   });
-  
+
   app.get('/create_me', function (req, res) {
     var model = services.useModel('author');
     var me = new model.Author();
@@ -100,12 +118,12 @@ module.exports = function(app) {
     me.location = 'Budapest, HU';
     me.email = 'yitsushi@folyam.info';
     me.googlePlusId = '104695723888883478740';
-    
+
     me.save(function(err) {
       if (err) {
         console.log(err);
       }
-      
+
       res.redirect('/');
     });
   });
